@@ -4,70 +4,79 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Google Sheets Form</title>
-    <style>
-        /* Your existing styles */
+    <!-- <link rel="stylesheet" href="style.css"> -->
+     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        .form-container {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 500px;
-        }
-        .form-container h2 {
-            text-align: center;
-            margin-bottom: 20px;
-            color: #333;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            color: #666;
-        }
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        .form-group textarea {
-            resize: vertical;
-        }
-        .form-group button {
-            width: 100%;
-            padding: 10px;
-            background-color: #28a745;
-            border: none;
-            color: white;
-            font-size: 16px;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        .form-group button:hover {
-            background-color: #218838;
-        }
-        .form-group .message {
-            margin-top: 15px;
-            text-align: center;
-            color: #28a745;
-        }
-    </style>
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    /* background-size: cover; */
+    background-image: linear-gradient(to top, #0c3483 0%, #a2b6df 100%, #6b8cce 100%, #a2b6df 100%);
+}
+.form-container {
+    background-image: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+}
+.form-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+.form-group {
+    margin-bottom: 15px;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #666;
+    font-weight: bold;
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #f5a5a5;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-image: linear-gradient(to top, #fdcbf1 0%, #fdcbf1 1%, #e6dee9 100%);
+}
+.form-group textarea {
+    resize: vertical;
+}
+.form-group button {
+    width: 100%;
+    padding: 10px;
+    background-image: linear-gradient(to top, #00c6fb 0%, #005bea 100%);
+    border: none;
+    color: white;
+    font-size: 19px;
+    font-weight: bolder;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.form-group button:hover {
+    background-image: linear-gradient(-20deg, #b721ff 0%, #21d4fd 100%);
+}
+.form-group .message {
+    margin-top: 15px;
+    text-align: center;
+    color: #df1f06;
+    font-weight: bold;
+}
+     </style>
+   
 </head>
 <body>
     <div class="form-container">
@@ -116,34 +125,37 @@
         </form>
     </div>
 
-    <script>
-        document.getElementById('data-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const form = e.target;
-            const formData = new FormData(form);
-            const data = new URLSearchParams();
-            formData.forEach((value, key) => {
-                data.append(key, value);
-            });
-            const formMessage = document.getElementById('form-message');
-            
-            fetch('https://script.google.com/macros/s/AKfycbxGJuTjJDHIEsngvONkvNW_Yzqo1tbBKur0ZYXawikiBDDrUnkSuWb61RYPx1ctO6D5/exec', {
-                method: 'POST',
-                body: data,
-            })
-            .then(response => response.json())
-            .then(result => {
-                if (result.status === 'success') {
-                    form.reset();
-                    formMessage.textContent = 'Form submitted successfully!';
-                } else {
-                    formMessage.textContent = 'There was an error submitting the form. Please try again.';
-                }
-            })
-            .catch(error => {
-                formMessage.textContent = 'There was an error submitting the form. Please try again.';
-            });
-        });
-    </script>
+   <script>
+    document.getElementById('data-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const form = e.target;
+    const formData = new FormData(form);
+    const data = new URLSearchParams();
+    formData.forEach((value, key) => {
+        data.append(key, value);
+    });
+    const formMessage = document.getElementById('form-message');
+    
+    fetch('https://script.google.com/macros/s/AKfycby_yLtRC4ywKrd2RNmSkfU74A7D6TLTD5EP1Bx9zHQLDLZgdWhdhNkPbg78hSkfyUQO/exec', {
+        method: 'POST',
+        body: data,
+    })
+    .then(response => response.json())
+    .then(result => {
+        if (result.status === 'success') {
+            form.reset();
+            formMessage.textContent = 'Form submitted successfully!';
+        } else {
+            formMessage.textContent = 'There was an error submitting the form. Please try again.';
+        }
+    })
+    .catch(error => {
+        formMessage.textContent = 'There was an error submitting the form. Please try again.';
+    });
+});
+
+   </script>
+        
+
 </body>
 </html>
