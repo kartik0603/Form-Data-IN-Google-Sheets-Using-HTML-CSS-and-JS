@@ -3,9 +3,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form-Data-IN-Google-Sheets-Using-HTML-CSS-and-JS</title>
+    <title>Google Sheets Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .form-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .form-group textarea {
+            resize: vertical;
+        }
+        .form-group button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            border: none;
+            color: white;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .form-group button:hover {
+            background-color: #218838;
+        }
+        .form-group .message {
+            margin-top: 15px;
+            text-align: center;
+            color: #28a745;
+        }
+    </style>
 </head>
 <body>
-    
+    <div class="form-container">
+        <h2>Submit Your Details</h2>
+        <form id="data-form">
+            <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input type="text" id="firstName" name="firstName" required>
+            </div>
+            <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input type="text" id="lastName" name="lastName" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email ID</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="schoolName">School Name</label>
+                <input type="text" id="schoolName" name="schoolName">
+            </div>
+            <div class="form-group">
+                <label for="collegeName">College Name</label>
+                <input type="text" id="collegeName" name="collegeName">
+            </div>
+            <div class="form-group">
+                <label for="studyField">Study in Which Field</label>
+                <input type="text" id="studyField" name="studyField">
+            </div>
+            <div class="form-group">
+                <label for="mobileNumber">Mobile Number</label>
+                <input type="tel" id="mobileNumber" name="mobileNumber" required>
+            </div>
+            <div class="form-group">
+                <label for="workExperience">Work Experience</label>
+                <textarea id="workExperience" name="workExperience"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="hobby">Hobby</label>
+                <input type="text" id="hobby" name="hobby">
+            </div>
+            <div class="form-group">
+                <button type="submit">Submit</button>
+            </div>
+            <div class="form-group message" id="form-message"></div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('data-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const form = e.target;
+            const data = new FormData(form);
+            const formMessage = document.getElementById('form-message');
+            
+            fetch('https://script.google.com/macros/s/AKfycbzsZ3m1-GVMkieGTLeSNMv4HWbKeXvysq8tXPhlRqA4NYkXXgh2aGWYVGAmZgCHnINC/exectps://script.google.com/macros/s/AKfycbxvqMc2PfV0XWdHfCUlmypSrT4Pk40mOi0F4C2pf0D-MPLU6Ul312SHxlivspgLPsgA/exec', {
+                method: 'POST',
+                body: data,
+                mode: 'no-cors'
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (result.status === 'success') {
+                    form.reset();
+                    formMessage.textContent = 'Form submitted successfully!';
+                } else {
+                    formMessage.textContent = 'There was an error submitting the form. Please try again.';
+                }
+            })
+            .catch(error => {
+                formMessage.textContent = 'There was an error submitting the form. Please try again.';
+            });
+        });
+    </script>
 </body>
 </html>
