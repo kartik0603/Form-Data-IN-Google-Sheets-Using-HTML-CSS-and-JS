@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Google Sheets Form</title>
     <style>
+        /* Your existing styles */
         body {
             font-family: Arial, sans-serif;
             background-color: #f2f2f2;
@@ -119,13 +120,16 @@
         document.getElementById('data-form').addEventListener('submit', function(e) {
             e.preventDefault();
             const form = e.target;
-            const data = new FormData(form);
+            const formData = new FormData(form);
+            const data = new URLSearchParams();
+            formData.forEach((value, key) => {
+                data.append(key, value);
+            });
             const formMessage = document.getElementById('form-message');
             
-            fetch('https://script.google.com/macros/s/AKfycbzsZ3m1-GVMkieGTLeSNMv4HWbKeXvysq8tXPhlRqA4NYkXXgh2aGWYVGAmZgCHnINC/exectps://script.google.com/macros/s/AKfycbxvqMc2PfV0XWdHfCUlmypSrT4Pk40mOi0F4C2pf0D-MPLU6Ul312SHxlivspgLPsgA/exec', {
+            fetch('https://script.google.com/macros/s/AKfycbxGJuTjJDHIEsngvONkvNW_Yzqo1tbBKur0ZYXawikiBDDrUnkSuWb61RYPx1ctO6D5/exec', {
                 method: 'POST',
                 body: data,
-                mode: 'no-cors'
             })
             .then(response => response.json())
             .then(result => {
